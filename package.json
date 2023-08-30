@@ -1,0 +1,43 @@
+{
+  "name": "boilerplate-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec ts-node-dev src/Server.ts",
+    "lint:fix": "eslint -c .eslintrc ./src --fix",
+    "lint": "eslint -c .eslintrc ./src",
+    "pre-commit": "lint-staged",
+    "pre-check": "pnpm ts-check && pnpm lint",
+    "prepare": "husky install",
+    "start": "node dist/src/index.js",
+    "tsc": "tsc",
+    "ts-check": "tsc -p tsconfig.json --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "fastify": "^4.22.0",
+    "helmet": "^7.0.0",
+    "mongoose": "^7.5.0",
+    "pino": "^8.15.0",
+    "pino-pretty": "^10.2.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
+    "@typescript-eslint/eslint-plugin": "^6.5.0",
+    "@typescript-eslint/parser": "^6.5.0",
+    "eslint": "^8.48.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "nodemon": "^3.0.1",
+    "ts-node-dev": "^2.0.0",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2"
+  }
+}
