@@ -14,5 +14,5 @@ if (!process.env.NODE_PORT)
 
 export const env: IEnvConfig = {
     NODE_ENV: process.env.NODE_ENV,
-    NODE_PORT: Number(process.env.NODE_PORT),
+    NODE_PORT: Number(process.env.NODE_PORT)
 };
