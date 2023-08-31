@@ -1,30 +1,46 @@
-import Fastify, {FastifyInstance} from 'fastify';
-import {env} from "./config/envConfig/envConfig";
+import Fastify, { FastifyInstance } from 'fastify';
+import { env } from './config/envConfig/envConfig';
+import { AuthController } from './modules/Auth/controllers/AuthController';
+import { signUpSchema } from './modules/Auth/validations/AuthValidation';
+
 
 class Server
 {
     private app: FastifyInstance;
     private readonly port: number;
+    private AuthController: AuthController;
 
-    public constructor() {
-        this.app = Fastify({logger: true});
-        this.port = env.NODE_PORT
+    public constructor()
+    {
+        this.app = Fastify({ logger: true });
+        this.port = env.NODE_PORT;
+        this.AuthController = new AuthController();
+        this.initializeRoutes();
     }
 
-    public initialiceRoutes() {
-
+    public initializeRoutes()
+    {
+        this.app.route({
+            method: 'POST',
+            url: '/auth',
+            schema: signUpSchema,
+            handler: this.AuthController.signUp
+        });
     }
 
-    public async listen() {
-        try {
-            await this.app.listen({port: this.port})
+    public async listen()
+    {
+        try
+        {
+            await this.app.listen({ port: this.port });
         }
-        catch (err) {
+        catch (err)
+        {
             this.app.log.error(err);
         }
-
     }
 }
 
 const server = new Server();
-server.listen();
+// TODO: ver como manejar este listen ya que es asincrono
+void server.listen();
