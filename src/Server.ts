@@ -1,46 +1,31 @@
 import Fastify, { FastifyInstance } from 'fastify';
 import { env } from './config/envConfig/envConfig';
 import { AuthController } from './modules/Auth/controllers/AuthController';
-import { signUpSchema } from './modules/Auth/validations/AuthValidation';
-
+import { routerAuth } from './modules/Auth/routes/Routes';
 
 class Server
 {
     private app: FastifyInstance;
-    private readonly port: number;
     private AuthController: AuthController;
 
     public constructor()
     {
-        this.app = Fastify({ logger: true });
-        this.port = env.NODE_PORT;
+        // TODO: Por lo visto si pongo dentro de Fastify({ logger: true }) activa Pino, pero no pude personalizarlo. Hay que ver como se personaliza o directamente instalar Pino
+        this.app = Fastify();
         this.AuthController = new AuthController();
         this.initializeRoutes();
     }
 
     public initializeRoutes()
     {
-        // TODO: ESTAS RUTAS TENDRIAN QUE ITERARSE EN UN ARRAY
-        this.app.route({
-            method: 'POST',
-            url: '/auth',
-            schema: signUpSchema,
-            handler: this.AuthController.signUp
-        });
+        routerAuth.forEach((routes) => this.app.route(routes));
     }
 
     public listen()
     {
-        try
-        {
-            this.app.listen({ port: this.port })
-                .then(() => console.log(`App listening on http://localhost:${this.port}`))
-                .catch(error => console.log(error));
-        }
-        catch (err)
-        {
-            this.app.log.error(err);
-        }
+        this.app.listen({ port: env.NODE_PORT })
+            .then(() => console.log(`🚀 Server is running at ${env.NODE_URL_API}`))
+            .catch(error => console.log(error));
     }
 }
 
