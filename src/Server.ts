@@ -29,11 +29,13 @@ class Server
         });
     }
 
-    public async listen()
+    public listen()
     {
         try
         {
-            await this.app.listen({ port: this.port });
+            this.app.listen({ port: this.port })
+                .then(() => console.log(`App listening on http://localhost:${this.port}`))
+                .catch(error => console.log(error));
         }
         catch (err)
         {
@@ -43,5 +45,4 @@ class Server
 }
 
 const server = new Server();
-// TODO: ver como manejar este listen ya que es asincrono
-void server.listen();
+server.listen();
