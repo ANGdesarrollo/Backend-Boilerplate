@@ -20,6 +20,7 @@ class Server
 
     public initializeRoutes()
     {
+        // TODO: ESTAS RUTAS TENDRIAN QUE ITERARSE EN UN ARRAY
         this.app.route({
             method: 'POST',
             url: '/auth',
