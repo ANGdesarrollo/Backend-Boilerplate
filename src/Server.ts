@@ -1,28 +1,46 @@
-import Fastify, {FastifyInstance} from 'fastify';
-import {env} from "./config/envConfig/envConfig";
+import Fastify, { FastifyInstance } from 'fastify';
+import { env } from './config/envConfig/envConfig';
+import { AuthController } from './modules/Auth/controllers/AuthController';
+import { signUpSchema } from './modules/Auth/validations/AuthValidation';
+
 
 class Server
 {
     private app: FastifyInstance;
     private readonly port: number;
+    private AuthController: AuthController;
 
-    public constructor() {
-        this.app = Fastify({logger: true});
-        this.port = env.NODE_PORT
+    public constructor()
+    {
+        this.app = Fastify({ logger: true });
+        this.port = env.NODE_PORT;
+        this.AuthController = new AuthController();
+        this.initializeRoutes();
     }
 
-    public initialiceRoutes() {
-
+    public initializeRoutes()
+    {
+        // TODO: ESTAS RUTAS TENDRIAN QUE ITERARSE EN UN ARRAY
+        this.app.route({
+            method: 'POST',
+            url: '/auth',
+            schema: signUpSchema,
+            handler: this.AuthController.signUp
+        });
     }
 
-    public async listen() {
-        try {
-            await this.app.listen({port: this.port})
+    public listen()
+    {
+        try
+        {
+            this.app.listen({ port: this.port })
+                .then(() => console.log(`App listening on http://localhost:${this.port}`))
+                .catch(error => console.log(error));
         }
-        catch (err) {
+        catch (err)
+        {
             this.app.log.error(err);
         }
-
     }
 }
 
