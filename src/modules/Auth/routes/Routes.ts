@@ -9,5 +9,10 @@ export const routerAuth: IRouter[] = [
         url: '/auth',
         schema: signUpSchema,
         handler: authController.signUp
+    },
+    {
+        method: 'GET',
+        url: '/testPino',
+        handler: authController.testPino
     }
 ];
