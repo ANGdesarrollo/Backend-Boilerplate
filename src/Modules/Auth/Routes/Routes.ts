@@ -1,6 +1,6 @@
-import { signUpSchema } from './validations/AuthValidation';
-import { AuthController } from '../controllers/AuthController';
-import { IRouter } from '../../../shared/routes/IRoutes';
+import { signUpSchema } from './Validations/AuthValidation';
+import { AuthController } from '../Controller/AuthController';
+import { IRouter } from '../../../Shared/Routes/IRoutes';
 
 const authController: AuthController = new AuthController();
 export const routerAuth: IRouter[] = [

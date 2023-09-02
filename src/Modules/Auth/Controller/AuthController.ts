@@ -1,9 +1,15 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
+import {CreateUserUseCase} from "../Domain/useCases/CreateUserUseCase";
+import {User} from "../Domain/Entities/User/User";
 
 export class AuthController
 {
     public async signUp(request: FastifyRequest, reply: FastifyReply)
     {
+        const userData = new User(request.body);
+        const saveUserUseCase = new CreateUserUseCase();
+        return await saveUserUseCase.handle(userData);
+
         return 'hello word';
     }
 
