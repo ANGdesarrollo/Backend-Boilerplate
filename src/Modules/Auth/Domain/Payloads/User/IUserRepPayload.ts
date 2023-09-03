@@ -1,4 +1,4 @@
-interface IUserRepPayload {
+export interface IUserRepPayload {
     username: string;
     email: string;
     password: string;

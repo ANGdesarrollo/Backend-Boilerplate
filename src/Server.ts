@@ -2,7 +2,7 @@ import Fastify, { FastifyInstance } from 'fastify';
 import { env } from './Config/EnvConfig/envConfig';
 import { routerAuth } from './Modules/Auth/Routes/Routes';
 import logger from './Config/PinoConfig/pinoConfig';
-import {mongooseConnection} from "./Shared/Infraestructure/Database/MongooseConnection";
+import { mongooseConnection } from './Shared/Infraestructure/Database/MongooseConnection';
 
 class Server
 {
@@ -24,7 +24,7 @@ class Server
     public initializeConnectionDB()
     {
         mongooseConnection()
-            .then(() => this.app.log.info("Connection to Database successfully created"))
+            .then(() => this.app.log.info('Connection to Database successfully created'))
             .catch((error) => this.app.log.error(error));
     }
 
@@ -36,7 +36,7 @@ class Server
             {
                 this.app.log.info(`🚀 Server is running at ${env.NODE_URL_API}`);
             })
-            .catch((error) => console.log(error));
+            .catch((error) => this.app.log.error(error));
     }
 }
 const server = new Server();

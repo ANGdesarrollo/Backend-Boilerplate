@@ -1,7 +1,7 @@
-import {Schema, Document, model} from "mongoose";
-import {IUserDomain} from "../../Domain/Entities/User/IUserDomain";
+import { Schema, Document, model } from 'mongoose';
+import { IUserDomain } from '../../Domain/Entities/User/IUserDomain';
 import { v4 as uuidv4 } from 'uuid';
-import {User} from "../../Domain/Entities/User/User";
+import { User } from '../../Domain/Entities/User/User';
 
 export type UserMongooseDocument = Document & IUserDomain;
 
@@ -13,7 +13,7 @@ const UserSchema = new Schema<UserMongooseDocument>({
     // permissions: { type: Array, required: true },
     // roles: { type: Schema.Types.String, ref: 'Role' },
     enable: { type: Boolean, required: true },
-    verify: { type: Boolean, required: true },
+    verify: { type: Boolean, required: true }
 }, { timestamps: true });
 
 UserSchema.loadClass(User);

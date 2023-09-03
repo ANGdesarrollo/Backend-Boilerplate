@@ -1,5 +1,5 @@
 
-import {IBaseDomain} from './IBaseDomain';
+import { IBaseDomain } from './IBaseDomain';
 import { v4 as uuidv4 } from 'uuid';
 
 export abstract class Base implements IBaseDomain
