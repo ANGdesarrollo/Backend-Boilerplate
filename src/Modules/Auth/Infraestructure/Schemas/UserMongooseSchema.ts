@@ -7,7 +7,9 @@ export type UserMongooseDocument = Document & IUserDomain;
 
 const UserSchema = new Schema<UserMongooseDocument>({
     _id: { type: String, default: uuidv4 },
+    username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
     // token: { type: String, unique: true },
     // resetPasswordToken: { type: String, unique: true},
     // permissions: { type: Array, required: true },
