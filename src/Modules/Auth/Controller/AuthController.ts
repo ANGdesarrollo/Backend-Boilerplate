@@ -1,17 +1,20 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { CreateUserUseCase } from '../Domain/useCases/CreateUserUseCase';
-import { User } from '../Domain/Entities/User/User';
 import { IUserRepPayload } from '../Domain/Payloads/User/IUserRepPayload';
+import { UserTransformer } from '../Routes/Transformers/UserTransformer';
 
 export class AuthController
 {
     public async signUp(request: FastifyRequest, reply: FastifyReply)
     {
-        const body = request.body as IUserRepPayload;
-        const saveUserUseCase = new CreateUserUseCase();
-        const userSaved = await saveUserUseCase.handle(body);
+        const data = request.body as IUserRepPayload;
+        data.enable = true;
+        data.verify = false;
+        const createUserUseCase = new CreateUserUseCase();
+        const userSaved = await createUserUseCase.handle(data);
+        const transformUser = new UserTransformer(userSaved);
 
-        await reply.send(userSaved);
+        await reply.send(transformUser);
     }
 
     public async testPino(request: FastifyRequest, reply: FastifyReply)

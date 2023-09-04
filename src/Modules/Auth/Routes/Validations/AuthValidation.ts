@@ -1,9 +1,9 @@
 export const signUpSchema = {
     body: {
         type: 'object',
-        required: ['email', 'password'],
+        required: ['username', 'password'],
         properties: {
-            email: { type: 'string', format: 'email' },
+            username: { type: 'string', format: 'email' },
             password: { type: 'string', minLength: 8 }
         }
     }
