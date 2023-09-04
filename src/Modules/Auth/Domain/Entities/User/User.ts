@@ -5,7 +5,6 @@ import { createHash } from '../../../../../Shared/Utils/Hash';
 export class User extends Base implements IBaseDomain
 {
     public username: string;
-    public email: string;
     public password: string;
     // token?: string;
     // resetPasswordToken?: string;
@@ -18,7 +17,6 @@ export class User extends Base implements IBaseDomain
     {
         super();
         this.username = payload.username;
-        this.email = payload.email;
         this.password = createHash(payload.password);
         this.verify = payload.verify;
         this.enable = payload.enable;

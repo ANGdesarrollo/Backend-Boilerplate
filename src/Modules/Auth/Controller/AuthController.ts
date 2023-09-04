@@ -1,6 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { CreateUserUseCase } from '../Domain/useCases/CreateUserUseCase';
-import { User } from '../Domain/Entities/User/User';
 import { IUserRepPayload } from '../Domain/Payloads/User/IUserRepPayload';
 import { UserTransformer } from '../Routes/Transformers/UserTransformer';
 

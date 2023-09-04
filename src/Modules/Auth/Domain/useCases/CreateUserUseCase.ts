@@ -14,6 +14,15 @@ export class CreateUserUseCase extends UserRepository
 
     async handle(payload: IUserRepPayload): Promise<IUserDomain>
     {
+        const usernameExists = await this.userRepository.getOne({
+            username: payload.username
+        });
+
+        if (usernameExists)
+        {
+            throw new Error('User already exists');
+        }
+
         const user: IUserDomain = new User(payload);
         return await this.userRepository.save(user);
     }
