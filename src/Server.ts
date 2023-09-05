@@ -3,6 +3,10 @@ import { env } from './Config/EnvConfig/envConfig';
 import { routerAuth } from './Modules/Auth/Routes/Routes';
 import logger from './Config/PinoConfig/pinoConfig';
 import { mongooseConnection } from './Shared/Infraestructure/Database/MongooseConnection';
+import cors from '@fastify/cors';
+import helmet from '@fastify/helmet';
+import fastifyJwt from '@fastify/jwt';
+import fastifyRateLimit from '@fastify/rate-limit';
 
 class Server
 {
@@ -12,7 +16,18 @@ class Server
     {
         this.app = Fastify(logger);
         this.initializeRoutes();
-        this.initializeConnectionDB();
+    }
+    public async initializePlugins()
+    {
+        // TODO: Investigar las configuracioens de cors. https://github.com/fastify/fastify-cors
+        await this.app.register(cors);
+        // TODO: Investigar las configuraciones de helmet. https://github.com/fastify/fastify-helmet
+        await this.app.register(helmet);
+        // TODO: Investigar como funciona el JWT token para setear una cookie cuando se loguea un usuario https://github.com/fastify/fastify-jwt
+        // TODO: Interesante plugin que viene con standard de autorizacion OAUTH2, investigar. https://github.com/fastify/fastify-oauth2
+        await this.app.register(fastifyJwt, { secret: 'clave secreta que viene del env' });
+        // https://github.com/fastify/fastify-rate-limit
+        await this.app.register(fastifyRateLimit, { max: 30, timeWindow: '1 minute' });
     }
 
     public initializeRoutes()
@@ -41,3 +56,6 @@ class Server
 }
 const server = new Server();
 server.listen();
+server.initializeConnectionDB();
+// TODO: Investigar como llamar a los plugins que son asincronos aca sin usar then, como hacen en node experience?
+server.initializePlugins().then(() => '').catch(() => '');
