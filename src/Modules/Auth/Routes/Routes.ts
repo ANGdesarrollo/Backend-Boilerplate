@@ -6,9 +6,15 @@ const authController: AuthController = new AuthController();
 export const routerAuth: IRouter[] = [
     {
         method: 'POST',
-        url: '/auth',
+        url: '/auth/register',
         schema: signUpSchema,
         handler: authController.signUp
+    },
+    {
+        method: 'POST',
+        url: '/auth/login',
+        schema: signUpSchema,
+        handler: authController.signIn
     },
     {
         method: 'GET',

@@ -1,8 +1,8 @@
 import { Base } from '../../../../../Shared/Domain/Entities/Base';
-import { IBaseDomain } from '../../../../../Shared/Domain/Entities/IBaseDomain';
 import { IUserRepPayload } from '../../Payloads/User/IUserRepPayload';
 import { createHash } from '../../../../../Shared/Utils/Hash';
-export class User extends Base implements IBaseDomain
+import { IUserDomain } from './IUserDomain';
+export class User extends Base implements IUserDomain
 {
     public username: string;
     public password: string;
