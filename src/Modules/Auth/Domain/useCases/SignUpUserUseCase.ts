@@ -1,9 +1,11 @@
-import { UserRepository } from '../../Infraestructure/Repositories/UserRepository';
-import { IUserDomain } from '../Entities/User/IUserDomain';
 import { IUserRepPayload } from '../Payloads/User/IUserRepPayload';
+import { UserRepository } from '../../Infraestructure/Repositories/UserRepository';
+import { ISignUpUserUseCase } from './ISignUpUserUseCase';
+import { IUserDomain } from '../Entities/User/IUserDomain';
 import { User } from '../Entities/User/User';
 
-export class CreateUserUseCase extends UserRepository
+
+export class SignUpUserUseCase extends UserRepository implements ISignUpUserUseCase
 {
     private userRepository: UserRepository;
     constructor()
@@ -23,7 +25,9 @@ export class CreateUserUseCase extends UserRepository
             throw new Error('User already exists');
         }
 
-        const user: IUserDomain = new User(payload);
+        const user = new User(payload);
+        user.enable = true;
+        user.verify = false;
         return await this.userRepository.save(user);
     }
 }

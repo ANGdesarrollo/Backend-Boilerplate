@@ -23,16 +23,28 @@ export class BaseMongooseRepository<T extends IBaseDomain, D extends Document & 
 
     async getOne(condition: Record<string, any>): Promise<T>
     {
-        return await this.repository.findOne(condition as FilterQuery<T>).exec();
-    }
-
-    async delete(id: string)
-    {
-        const entity = await this.repository.findByIdAndDelete({ _id: id } as any);
+        const entity = await this.repository.findOne(condition as FilterQuery<T>).exec();
 
         if (!entity)
         {
             // TODO: Ver como crear Exceptions personalizadas
+            throw new Error('Not found');
+        }
+
+        return entity;
+    }
+
+    async getOneById(id: string): Promise<T>
+    {
+        return await this.repository.findById(id).exec();
+    }
+
+    async delete(id: string)
+    {
+        const entity = await this.repository.findByIdAndDelete({ _id: id });
+
+        if (!entity)
+        {
             throw new Error('Not found');
         }
 
