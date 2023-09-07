@@ -7,6 +7,7 @@ import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
 import fastifyRateLimit from '@fastify/rate-limit';
 import { fastifyJwt } from '@fastify/jwt';
+import fastifyCookie from '@fastify/cookie';
 
 export class Server
 {
@@ -24,6 +25,11 @@ export class Server
             await this.app.register(helmet);
             await this.app.register(fastifyJwt, { secret: env.NODE_TOKEN_SECRET });
             await this.app.register(fastifyRateLimit, { max: 30, timeWindow: '1 minute' });
+            await this.app.register(fastifyCookie, {
+                secret: 'secret',
+                hook: 'onRequest',
+                parseOptions: {}
+            });
         }
         catch (error)
         {

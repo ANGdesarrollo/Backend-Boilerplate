@@ -5,26 +5,27 @@ import { FastifyInstance } from 'fastify';
 export class AuthRoutes
 {
     app: FastifyInstance;
-    authController: AuthController;
 
     constructor(app: FastifyInstance)
     {
         this.app = app;
-        this.authController = new AuthController();
     }
 
     public start()
     {
         this.app.post('/auth/register', {
             schema: signUpSchema,
-            handler: this.authController.signUp
+            handler: AuthController.signUp
         });
         this.app.post('/auth/login', {
             schema: signUpSchema,
-            handler: this.authController.signIn
+            handler: AuthController.signIn
         });
         this.app.get('/testPino', {
-            handler: this.authController.testPino
+            handler: AuthController.testPino
+        });
+        this.app.get('/auth', {
+            handler: AuthController.testDecode
         });
     }
 }
