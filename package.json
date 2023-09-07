@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec ts-node-dev src/Server.ts",
+    "dev": "nodemon --exec ts-node-dev src/InitServer.ts",
     "lint:fix": "eslint -c .eslintrc ./src --fix",
     "lint": "eslint -c .eslintrc ./src",
     "pre-commit": "lint-staged",
