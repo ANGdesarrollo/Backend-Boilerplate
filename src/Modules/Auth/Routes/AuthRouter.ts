@@ -4,7 +4,7 @@ import { FastifyInstance } from 'fastify';
 
 export class AuthRoutes
 {
-    app: FastifyInstance;
+    private app: FastifyInstance;
 
     constructor(app: FastifyInstance)
     {
@@ -24,8 +24,8 @@ export class AuthRoutes
         this.app.get('/testPino', {
             handler: AuthController.testPino
         });
-        this.app.get('/auth', {
-            handler: AuthController.testDecode
+        this.app.get('/auth/refreshToken', {
+            handler: AuthController.refreshCookie
         });
     }
 }

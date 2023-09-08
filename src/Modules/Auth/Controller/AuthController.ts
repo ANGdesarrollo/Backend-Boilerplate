@@ -1,8 +1,11 @@
-import { SignUpUserUseCase } from '../Domain/useCases/SignUpUserUseCase';
+import { SignUpUserUseCase } from '../Domain/UseCases/SignUpUserUseCase';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { IUserRepPayload } from '../Domain/Payloads/User/IUserRepPayload';
 import { UserTransformer } from '../Routes/Transformers/UserTransformer';
-import { SignInUserUseCase } from '../Domain/useCases/SignInUserUseCase';
+import { SignInUserUseCase } from '../Domain/UseCases/SignInUserUseCase';
+import jwt from 'jsonwebtoken';
+import { env } from '../../../Config/EnvConfig/envConfig';
+import { JWToken } from '../Domain/Models/JWToken';
 
 export class AuthController
 {
@@ -19,10 +22,19 @@ export class AuthController
         const data = request.body as IUserRepPayload;
         const loginUserUseCase = new SignInUserUseCase();
         const loginUser = await loginUserUseCase.handle(data);
-        const jwt = await reply.jwtSign({ id: loginUser.getId() });
-        await reply.setCookie('accessToken', jwt, {
+        const expiresIn = 10 * 60;
+
+        const accessToken = jwt.sign({
+            expiresIn,
+            data: {
+                username: loginUser.getId(),
+                expiresIn
+            }
+        }, env.NODE_TOKEN_SECRET);
+        void reply.setCookie('accessToken', accessToken, {
             signed: true,
-            httpOnly: true
+            httpOnly: true,
+            maxAge: expiresIn
         });
 
         await reply.status(201).send(new UserTransformer(loginUser));
@@ -36,10 +48,24 @@ export class AuthController
         reply.log.fatal('Esto es un mensaje de nivel fatal');
     }
 
-    static async testDecode(request: FastifyRequest, reply: FastifyReply)
+    static async refreshCookie(request: FastifyRequest, reply: FastifyReply)
     {
-        // const cookie = request.cookies.accessToken;
-        // const unsigned = reply.unsignCookie(cookie);
-        await reply.send('hola');
+        const expiresIn = 10 * 60;
+        const cookie = reply.unsignCookie(request.cookies.accessToken);
+        const token = JWToken.verifyJWT(cookie.value);
+        const accessToken = JWToken.setJWT(expiresIn, token.data.username);
+
+
+        void reply.clearCookie('accessToken', {
+            signed: true
+        });
+
+        void reply.setCookie('accessToken', accessToken, {
+            signed: true,
+            httpOnly: true,
+            maxAge: expiresIn
+        });
+
+        await reply.send(accessToken);
     }
 }
