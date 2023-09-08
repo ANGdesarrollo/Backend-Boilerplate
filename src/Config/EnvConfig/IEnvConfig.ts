@@ -6,4 +6,5 @@ export interface IEnvConfig {
     NODE_MONGO_ATLAS_URI: string;
     NODE_TOKEN_SECRET: string;
     NODE_TOKEN_REFRESH_SECRET: string;
+    NODE_COOKIE_SECRET: string;
 }

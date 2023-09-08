@@ -6,7 +6,6 @@ import { mongooseConnection } from './Shared/Infraestructure/Database/MongooseCo
 import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
 import fastifyRateLimit from '@fastify/rate-limit';
-import { fastifyJwt } from '@fastify/jwt';
 import fastifyCookie from '@fastify/cookie';
 
 export class Server
@@ -17,16 +16,15 @@ export class Server
     {
         this.app = Fastify(logger);
     }
-    public async initializePlugins()
+    public async initializePlugins(): Promise<void>
     {
         try
         {
             await this.app.register(cors);
             await this.app.register(helmet);
-            await this.app.register(fastifyJwt, { secret: env.NODE_TOKEN_SECRET });
             await this.app.register(fastifyRateLimit, { max: 30, timeWindow: '1 minute' });
             await this.app.register(fastifyCookie, {
-                secret: 'secret',
+                secret: env.NODE_TOKEN_SECRET,
                 hook: 'onRequest',
                 parseOptions: {}
             });
@@ -42,13 +40,13 @@ export class Server
         // https://github.com/fastify/fastify-rate-limit
     }
 
-    public initializeRoutes()
+    public initializeRoutes(): void
     {
         new AuthRoutes(this.app).start();
     }
 
     // TODO: Esta es la mejor manera de inicializar la DB? Investigar.
-    public async initializeConnectionDB()
+    public async initializeConnectionDB(): Promise<void>
     {
         try
         {
@@ -60,7 +58,7 @@ export class Server
         }
     }
 
-    public async listen()
+    public async listen(): Promise<void>
     {
         try
         {
