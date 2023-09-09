@@ -10,6 +10,7 @@ import { templateForgotEmail } from '../../../Shared/Utils/templates';
 import { IUserForgotPasswordPayload } from '../Domain/Payloads/User/IUserForgotPasswordPayload';
 import { IUserResetPasswordPayload } from '../Domain/Payloads/User/IUserResetPasswordPayload';
 import { ResetPasswordUserUseCase } from '../Domain/UseCases/ResetPasswordUserUseCase';
+import { GetMeUseCase } from '../Domain/UseCases/GetMeUseCase';
 
 export class AuthController
 {
@@ -64,6 +65,17 @@ export class AuthController
         await reply.status(200).send({
             status: true
         });
+    }
+
+    static async getMe(request: FastifyRequest, reply: FastifyReply)
+    {
+        const cookie = reply.unsignCookie(request.cookies.accessToken);
+        const token = JWToken.verifyJWT(cookie.value);
+        const username = token.data.username;
+        const useCase = new GetMeUseCase();
+        const user = await useCase.handle(username);
+
+        await reply.status(200).send(new UserTransformer(user));
     }
 
     static async testPino(request: FastifyRequest, reply: FastifyReply)

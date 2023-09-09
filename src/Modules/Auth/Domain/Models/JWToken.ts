@@ -12,7 +12,7 @@ export class JWToken
     static setJWT(username: string): string
     {
         return jwt.sign({
-            exp: env.NODE_TOKEN_EXPIRES_IN,
+            exp: Math.floor(Date.now() / 1000) + env.NODE_TOKEN_EXPIRES_IN,
             data: {
                 username
             }

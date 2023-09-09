@@ -32,6 +32,9 @@ export class AuthRoutes
             handler: AuthController.resetPassword,
             schema: resetPasswordSchema
         });
+        this.app.get('/auth/me', {
+            handler: AuthController.getMe
+        });
         this.app.get('/testPino', {
             handler: AuthController.testPino
         });
