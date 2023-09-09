@@ -1,4 +1,4 @@
-import { signUpSchema } from './Validations/AuthValidation';
+import { forgotPasswordSchema, resetPasswordSchema, signUpSchema } from './Validations/AuthValidation';
 import { AuthController } from '../Controller/AuthController';
 import { FastifyInstance } from 'fastify';
 
@@ -25,10 +25,12 @@ export class AuthRoutes
             handler: AuthController.refreshCookie
         });
         this.app.post('/auth/forgot-password', {
-            handler: AuthController.forgotPassword
+            handler: AuthController.forgotPassword,
+            schema: forgotPasswordSchema
         });
         this.app.put('/auth/reset-password', {
-            handler: AuthController.resetPassword
+            handler: AuthController.resetPassword,
+            schema: resetPasswordSchema
         });
         this.app.get('/testPino', {
             handler: AuthController.testPino
