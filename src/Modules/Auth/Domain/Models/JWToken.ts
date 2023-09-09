@@ -9,10 +9,10 @@ interface IJWT
 }
 export class JWToken
 {
-    static setJWT(expiresIn: number, username: string): string
+    static setJWT(username: string): string
     {
         return jwt.sign({
-            expiresIn,
+            exp: env.NODE_TOKEN_EXPIRES_IN,
             data: {
                 username
             }

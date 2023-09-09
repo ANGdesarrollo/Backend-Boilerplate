@@ -43,6 +43,36 @@ if (!process.env.NODE_COOKIE_SECRET)
     throw new Error('Environment not properly set. NODE_COOKIE_SECRET not set');
 }
 
+if (!process.env.NODE_PASSWORD_NODEMAILER)
+{
+    throw new Error('Environment not properly set. NODE_PASSWORD_NODEMAILER not set');
+}
+
+if (!process.env.NODE_HOST_NODEMAILER)
+{
+    throw new Error('Environment not properly set. NODE_HOST_NODEMAILER not set');
+}
+
+if (!process.env.NODE_PORT_NODEMAILER)
+{
+    throw new Error('Environment not properly set. NODE_PORT_NODEMAILER not set');
+}
+
+if (!process.env.NODE_USERNAME_NODEMAILER)
+{
+    throw new Error('Environment not properly set. NODE_USERNAME_NODEMAILER not set');
+}
+
+if (!process.env.NODE_TOKEN_EXPIRES_IN)
+{
+    throw new Error('Environment not properly set. NODE_TOKEN_EXPIRES_IN not set');
+}
+
+if (!process.env.NODE_COOKIE_EXPIRES_IN)
+{
+    throw new Error('Environment not properly set. NODE_TOKEN_EXPIRES_IN not set');
+}
+
 export const env: IEnvConfig = {
     NODE_ENV: process.env.NODE_ENV,
     NODE_PORT: Number(process.env.NODE_PORT),
@@ -51,5 +81,11 @@ export const env: IEnvConfig = {
     NODE_MONGO_ATLAS_URI: process.env.NODE_MONGO_ATLAS_URI,
     NODE_TOKEN_SECRET: process.env.NODE_TOKEN_SECRET,
     NODE_TOKEN_REFRESH_SECRET: process.env.NODE_TOKEN_REFRESH_SECRET,
-    NODE_COOKIE_SECRET:process.env.NODE_COOKIE_SECRET
+    NODE_COOKIE_SECRET:process.env.NODE_COOKIE_SECRET,
+    NODE_PASSWORD_NODEMAILER: process.env.NODE_PASSWORD_NODEMAILER,
+    NODE_HOST_NODEMAILER: process.env.NODE_HOST_NODEMAILER,
+    NODE_PORT_NODEMAILER: Number(process.env.NODE_PORT_NODEMAILER),
+    NODE_USERNAME_NODEMAILER: process.env.NODE_USERNAME_NODEMAILER,
+    NODE_TOKEN_EXPIRES_IN: Number(process.env.NODE_TOKEN_EXPIRES_IN),
+    NODE_COOKIE_EXPIRES_IN: Number(process.env.NODE_COOKIE_EXPIRES_IN)
 };

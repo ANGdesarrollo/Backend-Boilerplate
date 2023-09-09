@@ -3,9 +3,13 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import { IUserRepPayload } from '../Domain/Payloads/User/IUserRepPayload';
 import { UserTransformer } from '../Routes/Transformers/UserTransformer';
 import { SignInUserUseCase } from '../Domain/UseCases/SignInUserUseCase';
-import jwt from 'jsonwebtoken';
-import { env } from '../../../Config/EnvConfig/envConfig';
 import { JWToken } from '../Domain/Models/JWToken';
+import { Cookie } from '../Domain/Models/Cookie';
+import { Email } from '../../../Shared/Domain/Models/Email';
+import { templateForgotEmail } from '../../../Shared/Utils/templates';
+import { IUserForgotPasswordPayload } from '../Domain/Payloads/User/IUserForgotPasswordPayload';
+import { IUserResetPasswordPayload } from '../Domain/Payloads/User/IUserResetPasswordPayload';
+import { ResetPasswordUserUseCase } from '../Domain/UseCases/ResetPasswordUserUseCase';
 
 export class AuthController
 {
@@ -22,22 +26,44 @@ export class AuthController
         const data = request.body as IUserRepPayload;
         const loginUserUseCase = new SignInUserUseCase();
         const loginUser = await loginUserUseCase.handle(data);
-        const expiresIn = 10 * 60;
-
-        const accessToken = jwt.sign({
-            expiresIn,
-            data: {
-                username: loginUser.getId(),
-                expiresIn
-            }
-        }, env.NODE_TOKEN_SECRET);
-        void reply.setCookie('accessToken', accessToken, {
-            signed: true,
-            httpOnly: true,
-            maxAge: expiresIn
-        });
+        const accessToken = JWToken.setJWT(loginUser.username);
+        Cookie.generateCookie(reply, 'accessToken', accessToken);
 
         await reply.status(201).send(new UserTransformer(loginUser));
+    }
+
+    static async forgotPassword(request: FastifyRequest, reply: FastifyReply)
+    {
+        const data = request.body as IUserForgotPasswordPayload;
+        const recoverToken = JWToken.setJWT(data.username);
+        const link = `https://ang-dev.com/${recoverToken}`;
+        await Email.createTransport(templateForgotEmail('alexisgraff123@gmail.com', link));
+
+        await reply.status(201).send({
+            status: true
+        });
+    }
+
+    static async resetPassword(request: FastifyRequest, reply: FastifyReply)
+    {
+        const body = request.body as IUserResetPasswordPayload;
+        const useCase = new ResetPasswordUserUseCase();
+        const user = await useCase.handle(body);
+
+        await reply.status(201).send(user);
+    }
+
+    static async refreshCookie(request: FastifyRequest, reply: FastifyReply)
+    {
+        const cookie = reply.unsignCookie(request.cookies.accessToken);
+        const token = JWToken.verifyJWT(cookie.value);
+        const accessToken = JWToken.setJWT(token.data.username);
+        Cookie.removeCookie(reply, 'accessToken');
+        Cookie.generateCookie(reply, 'accessToken', accessToken);
+
+        await reply.status(200).send({
+            status: true
+        });
     }
 
     static async testPino(request: FastifyRequest, reply: FastifyReply)
@@ -46,26 +72,5 @@ export class AuthController
         reply.log.warn('Esto es un mensaje de nivel warn');
         reply.log.error('Esto es un mensaje de nivel error');
         reply.log.fatal('Esto es un mensaje de nivel fatal');
-    }
-
-    static async refreshCookie(request: FastifyRequest, reply: FastifyReply)
-    {
-        const expiresIn = 10 * 60;
-        const cookie = reply.unsignCookie(request.cookies.accessToken);
-        const token = JWToken.verifyJWT(cookie.value);
-        const accessToken = JWToken.setJWT(expiresIn, token.data.username);
-
-
-        void reply.clearCookie('accessToken', {
-            signed: true
-        });
-
-        void reply.setCookie('accessToken', accessToken, {
-            signed: true,
-            httpOnly: true,
-            maxAge: expiresIn
-        });
-
-        await reply.send(accessToken);
     }
 }

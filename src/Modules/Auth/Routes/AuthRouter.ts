@@ -21,11 +21,17 @@ export class AuthRoutes
             schema: signUpSchema,
             handler: AuthController.signIn
         });
-        this.app.get('/testPino', {
-            handler: AuthController.testPino
-        });
         this.app.get('/auth/refreshToken', {
             handler: AuthController.refreshCookie
+        });
+        this.app.post('/auth/forgot-password', {
+            handler: AuthController.forgotPassword
+        });
+        this.app.put('/auth/reset-password', {
+            handler: AuthController.resetPassword
+        });
+        this.app.get('/testPino', {
+            handler: AuthController.testPino
         });
     }
 }
