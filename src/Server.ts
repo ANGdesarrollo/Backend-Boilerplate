@@ -7,6 +7,10 @@ import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
 import fastifyRateLimit from '@fastify/rate-limit';
 import fastifyCookie from '@fastify/cookie';
+import multipart from '@fastify/multipart';
+import { FilesRouter } from './Modules/Files/Router/FilesRouter';
+import * as path from 'path';
+import fastifyStatic from '@fastify/static';
 
 export class Server
 {
@@ -20,7 +24,11 @@ export class Server
     {
         try
         {
-            await this.app.register(cors);
+            await this.app.register(multipart);
+            await this.app.register(cors, {
+                origin: 'http://127.0.0.1:5500',
+                credentials: true
+            });
             await this.app.register(helmet);
             await this.app.register(fastifyRateLimit, { max: 30, timeWindow: '1 minute' });
             await this.app.register(fastifyCookie, {
@@ -43,6 +51,7 @@ export class Server
     public initializeRoutes(): void
     {
         new AuthRoutes(this.app).start();
+        new FilesRouter(this.app).start();
     }
 
     // TODO: Esta es la mejor manera de inicializar la DB? Investigar.
