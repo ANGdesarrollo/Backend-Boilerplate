@@ -4,3 +4,5 @@ dist
 error.log
 log.log
 src/uploads/.*
+key.pem
+cert.pem

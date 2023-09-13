@@ -1,7 +1,6 @@
 import Fastify, { FastifyInstance } from 'fastify';
 import { env } from './Config/EnvConfig/envConfig';
 import { AuthRoutes } from './Modules/Auth/Routes/AuthRouter';
-import logger from './Config/PinoConfig/pinoConfig';
 import MongooseConnection from './Shared/Infraestructure/Database/MongooseConnection';
 import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
@@ -9,8 +8,7 @@ import fastifyRateLimit from '@fastify/rate-limit';
 import fastifyCookie from '@fastify/cookie';
 import multipart from '@fastify/multipart';
 import { FilesRouter } from './Modules/Files/Router/FilesRouter';
-import * as path from 'path';
-import fastifyStatic from '@fastify/static';
+import { fastifyConfig } from './Config/ConfigFastify/fastifyConfig';
 
 export class Server
 {
@@ -19,7 +17,7 @@ export class Server
 
     public constructor()
     {
-        this.app = Fastify(logger);
+        this.app = Fastify(fastifyConfig);
         this.database = new MongooseConnection();
     }
 
@@ -87,7 +85,6 @@ export class Server
 
     public async close(signal: NodeJS.Signals)
     {
-        this.app.log.info(`Received ${signal}. Closing the application...`);
         await this.database.close();
         await this.app.close();
     }
