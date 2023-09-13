@@ -73,6 +73,11 @@ if (!process.env.NODE_COOKIE_EXPIRES_IN)
     throw new Error('Environment not properly set. NODE_TOKEN_EXPIRES_IN not set');
 }
 
+if (process.env.NODE_ENV === 'PRODUCTION' && !process.env.NODE_HTTPS_PASSPHRASE)
+{
+    throw new Error('Environment not properly set. NODE_HTTPS_PASSPHRASE not set');
+}
+
 export const env: IEnvConfig = {
     NODE_ENV: process.env.NODE_ENV,
     NODE_PORT: Number(process.env.NODE_PORT),
@@ -87,5 +92,6 @@ export const env: IEnvConfig = {
     NODE_PORT_NODEMAILER: Number(process.env.NODE_PORT_NODEMAILER),
     NODE_USERNAME_NODEMAILER: process.env.NODE_USERNAME_NODEMAILER,
     NODE_TOKEN_EXPIRES_IN: Number(process.env.NODE_TOKEN_EXPIRES_IN),
-    NODE_COOKIE_EXPIRES_IN: Number(process.env.NODE_COOKIE_EXPIRES_IN)
+    NODE_COOKIE_EXPIRES_IN: Number(process.env.NODE_COOKIE_EXPIRES_IN),
+    NODE_HTTPS_PASSPHRASE: process.env.NODE_HTTPS_PASSPHRASE
 };
