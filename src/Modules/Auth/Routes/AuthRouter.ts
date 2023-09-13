@@ -1,4 +1,8 @@
-import { forgotPasswordSchema, resetPasswordSchema, signUpSchema } from './Validations/AuthValidation';
+import {
+    forgotPasswordSchema,
+    resetPasswordSchema,
+    signUpSchema
+} from './Validations/AuthValidation';
 import { AuthController } from '../Controller/AuthController';
 import { FastifyInstance } from 'fastify';
 
@@ -21,7 +25,7 @@ export class AuthRoutes
             schema: signUpSchema,
             handler: AuthController.signIn
         });
-        this.app.get('/auth/refreshToken', {
+        this.app.get('/auth/refresh-token', {
             handler: AuthController.refreshCookie
         });
         this.app.post('/auth/forgot-password', {
