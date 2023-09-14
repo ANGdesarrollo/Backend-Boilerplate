@@ -1,4 +1,4 @@
-import Fastify, { FastifyInstance } from 'fastify';
+import Fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { env } from './Config/EnvConfig/envConfig';
 import { AuthRoutes } from './Modules/Auth/Routes/AuthRouter';
 import MongooseConnection from './Shared/Infraestructure/Database/MongooseConnection';
@@ -56,6 +56,10 @@ export class Server
     {
         new AuthRoutes(this.app).start();
         new FilesRouter(this.app).start();
+        this.app.get('/', async(request: FastifyRequest, reply: FastifyReply) =>
+        {
+            await reply.send('HelloWorld');
+        });
     }
 
     public async initializeConnectionDB(): Promise<void>
