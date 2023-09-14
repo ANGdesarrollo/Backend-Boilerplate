@@ -11,7 +11,7 @@
     "pre-check": "pnpm ts-check && pnpm lint",
     "prepare": "husky install",
     "postinstall": "chmod +x .husky/pre-commit",
-    "start": "node dist/src/index.js",
+    "start": "pm2 pm2.config.js",
     "build": "tsc",
     "ts-check": "tsc -p tsconfig.json --noEmit"
   },
