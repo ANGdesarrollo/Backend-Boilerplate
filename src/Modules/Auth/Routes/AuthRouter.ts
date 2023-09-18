@@ -17,29 +17,29 @@ export class AuthRoutes
 
     public start()
     {
-        this.app.post('/auth/register', {
+        this.app.post('/api/auth/register', {
             schema: signUpSchema,
             handler: AuthController.signUp
         });
-        this.app.post('/auth/login', {
+        this.app.post('/api/auth/login', {
             schema: signUpSchema,
             handler: AuthController.signIn
         });
-        this.app.get('/auth/refresh-token', {
+        this.app.get('/api/auth/refresh-token', {
             handler: AuthController.refreshCookie
         });
-        this.app.post('/auth/forgot-password', {
+        this.app.post('/api/auth/forgot-password', {
             handler: AuthController.forgotPassword,
             schema: forgotPasswordSchema
         });
-        this.app.put('/auth/reset-password', {
+        this.app.put('/api/auth/reset-password', {
             handler: AuthController.resetPassword,
             schema: resetPasswordSchema
         });
-        this.app.get('/auth/me', {
+        this.app.get('/api/auth/me', {
             handler: AuthController.getMe
         });
-        this.app.get('/testPino', {
+        this.app.get('/api/testPino', {
             handler: AuthController.testPino
         });
     }

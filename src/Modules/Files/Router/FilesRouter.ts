@@ -12,10 +12,10 @@ export class FilesRouter
 
     public start()
     {
-        this.app.post('/files/upload', {
+        this.app.post('/api/files/upload', {
             handler: FileController.uploadFile
         });
-        this.app.get('/files/:fileName/:fileType', {
+        this.app.get('/api/files/:fileName/:fileType', {
             handler: FileController.getFile
         });
     }
