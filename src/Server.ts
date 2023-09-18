@@ -27,7 +27,7 @@ export class Server
         {
             await this.app.register(multipart);
             await this.app.register(cors, {
-                origin: 'http://127.0.0.1:5500',
+                origin: env.NODE_URL_WEB,
                 credentials: true
             });
             await this.app.register(helmet);
