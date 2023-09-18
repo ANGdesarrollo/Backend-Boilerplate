@@ -84,5 +84,7 @@ export class AuthController
         reply.log.warn('Esto es un mensaje de nivel warn');
         reply.log.error('Esto es un mensaje de nivel error');
         reply.log.fatal('Esto es un mensaje de nivel fatal');
+
+        await reply.send('Loggers sent');
     }
 }

@@ -8,7 +8,7 @@ module.exports = {
             watch: false,
             max_memory_restart: '1G',
             env: {
-                DOTENV_CONFIG_PATH: './.env', // Especifica la ubicación de tu archivo .env
+                DOTENV_CONFIG_PATH: './.env',
             }
         },
     ],
