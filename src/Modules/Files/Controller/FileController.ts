@@ -1,17 +1,18 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import fs from 'fs';
-import { pipeline } from 'stream';
-import util from 'util';
 import { IFilePayload } from '../Domain/Payloads/IFilePayload';
+import { UploadFileUseCase } from '../Domain/UseCases/UploadFileUseCase';
 
 export class FileController
 {
     static async uploadFile(request: FastifyRequest, reply: FastifyReply)
     {
         const data = await request.file();
-        const pump = util.promisify(pipeline);
-        await pump(data.file, fs.createWriteStream(`./uploads/${data.filename}`));
-        await reply.status(201).send('Received');
+        const useCase = new UploadFileUseCase();
+        await useCase.handle(data);
+        await reply.status(201).send({
+            status: true
+        });
     }
 
     static async getFile(request: FastifyRequest, reply: FastifyReply)
@@ -20,7 +21,7 @@ export class FileController
         const fileName = params.fileName;
         const fileType = params.fileType.split('-');
         const fileTypeFormatted = fileType.join('/');
-        const videoPath = `./src/uploads/${fileName}`;
+        const videoPath = `./uploads/${fileName}`;
         await fs.promises.access(videoPath, fs.constants.F_OK);
         void reply.type(fileTypeFormatted);
         const imageStream = fs.createReadStream(videoPath);
