@@ -9,6 +9,7 @@ import fastifyCookie from '@fastify/cookie';
 import multipart from '@fastify/multipart';
 import { FilesRouter } from './Modules/Files/Router/FilesRouter';
 import { fastifyConfig } from './Config/ConfigFastify/fastifyConfig';
+import { multipartConfig } from './Config/MultipartConfig/multipartConfig';
 
 export class Server
 {
@@ -25,7 +26,7 @@ export class Server
     {
         try
         {
-            await this.app.register(multipart);
+            await this.app.register(multipart, multipartConfig);
             await this.app.register(cors, {
                 origin: env.NODE_URL_WEB,
                 credentials: true
