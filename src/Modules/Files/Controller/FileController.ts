@@ -24,7 +24,6 @@ export class FileController
         const contentType = mime.lookup(fileName)
         await fs.promises.access(videoPath, fs.constants.F_OK);
         void reply.type(contentType);
-        console.log("SOY CONTENT TYPE ======>,", contentType)
         const readStream = fs.createReadStream(videoPath, { highWaterMark: 64 * 1024 });
         await reply.send(readStream);
     }
