@@ -15,7 +15,7 @@ export class FilesRouter
         this.app.post('/api/files/upload', {
             handler: FileController.uploadFile
         });
-        this.app.get('/api/files/:fileName/:fileType', {
+        this.app.get('/api/files/:fileName', {
             handler: FileController.getFile
         });
     }
