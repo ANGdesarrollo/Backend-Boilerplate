@@ -15,7 +15,9 @@ export class UploadFileUseCase implements IUploadFileUseCase
             fs.mkdirSync(uploadFolder);
         }
 
+        const path = `./uploads/${payload.filename}`
+
         const pump = util.promisify(pipeline);
-        await pump(payload.file, fs.createWriteStream(`./uploads/${payload.filename}`));
+        await pump(payload.file, fs.createWriteStream(path));
     }
 }

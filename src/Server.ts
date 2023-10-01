@@ -29,11 +29,12 @@ export class Server
             await this.app.register(multipart, multipartConfig);
             await this.app.register(cors, {
                 origin: env.NODE_URL_WEB,
-                credentials: true
+                credentials: true,
+                methods: ['GET', 'POST', 'PUT', 'DELETE']
             });
             await this.app.register(helmet);
             await this.app.register(fastifyRateLimit, {
-                max: 30,
+                max: 50,
                 timeWindow: '1 minute'
             });
             await this.app.register(fastifyCookie, {
