@@ -50,7 +50,11 @@
         "arrow-spacing": "warn",
         "space-before-function-paren": ["warn", "never"],
         "keyword-spacing": ["warn", { "before": true }],
-        "linebreak-style": ["error", "unix"],
+        /* ---------------------------------- Linux --------------------------------- */
+        // "linebreak-style": ["error", "unix"],
+        /* --------------------------------- Windows -------------------------------- */
+        "linebreak-style": ["error", "windows"],
+        /* -------------------------------------------------------------------------- */
         "padded-blocks": ["error", "never"],
         "eol-last": ["error", "always"],
         "brace-style": ["error", "allman"],

@@ -18,5 +18,8 @@ export class FilesRouter
         this.app.get('/api/files/:fileName', {
             handler: FileController.getFile
         });
+        this.app.get('/api/files/videos/:fileName', {
+            handler: FileController.getVideo
+        });
     }
 }
