@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import {RoleController} from "../Controller/RoleController";
+import { RoleController } from '../Controller/RoleController';
 export class RoleRouter
 {
     private app: FastifyInstance;

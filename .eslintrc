@@ -51,9 +51,9 @@
         "space-before-function-paren": ["warn", "never"],
         "keyword-spacing": ["warn", { "before": true }],
         /* ---------------------------------- Linux --------------------------------- */
-        // "linebreak-style": ["error", "unix"],
+         "linebreak-style": ["error", "unix"],
         /* --------------------------------- Windows -------------------------------- */
-        "linebreak-style": ["error", "windows"],
+//        "linebreak-style": ["error", "windows"],
         /* -------------------------------------------------------------------------- */
         "padded-blocks": ["error", "never"],
         "eol-last": ["error", "always"],

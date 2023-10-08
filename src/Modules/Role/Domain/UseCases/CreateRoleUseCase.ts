@@ -1,8 +1,8 @@
-import {RoleRepository} from "../../Infraestructure/Repositories/RoleRepository";
-import {ICreateRoleUseCase} from "./ICreateRoleUseCase";
-import {IRoleRepPayload} from "../Payloads/IRoleRepPayload";
-import {IRoleDomain} from "../Entities/IRoleDomain";
-import {Role} from "../Entities/Role";
+import { RoleRepository } from '../../Infraestructure/Repositories/RoleRepository';
+import { ICreateRoleUseCase } from './ICreateRoleUseCase';
+import { IRoleRepPayload } from '../Payloads/IRoleRepPayload';
+import { IRoleDomain } from '../Entities/IRoleDomain';
+import { Role } from '../Entities/Role';
 
 
 export class CreateRoleUseCase extends RoleRepository implements ICreateRoleUseCase

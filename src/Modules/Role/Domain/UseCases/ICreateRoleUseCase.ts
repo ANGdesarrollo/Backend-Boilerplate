@@ -1,5 +1,5 @@
-import {IRoleRepPayload} from "../Payloads/IRoleRepPayload";
-import {IRoleDomain} from "../Entities/IRoleDomain";
+import { IRoleRepPayload } from '../Payloads/IRoleRepPayload';
+import { IRoleDomain } from '../Entities/IRoleDomain';
 
 export interface ICreateRoleUseCase
 {

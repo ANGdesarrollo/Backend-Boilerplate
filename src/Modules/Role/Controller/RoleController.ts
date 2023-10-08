@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import {IRoleRepPayload} from "../Domain/Payloads/IRoleRepPayload";
-import {CreateRoleUseCase} from "../Domain/UseCases/CreateRoleUseCase";
+import { IRoleRepPayload } from '../Domain/Payloads/IRoleRepPayload';
+import { CreateRoleUseCase } from '../Domain/UseCases/CreateRoleUseCase';
 
 export class RoleController
 {
