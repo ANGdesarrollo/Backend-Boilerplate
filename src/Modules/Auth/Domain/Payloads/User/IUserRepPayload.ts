@@ -4,7 +4,7 @@ export interface IUserRepPayload {
     // token?: string;
     // resetPasswordToken?: string;
     // permissions: string[];
-    // roles: string[];
+    role: string;
     verify: boolean;
     enable: boolean;
 }

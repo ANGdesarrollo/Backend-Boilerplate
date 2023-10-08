@@ -12,7 +12,7 @@ const UserSchema = new Schema<UserMongooseDocument>({
     // token: { type: String, unique: true },
     // resetPasswordToken: { type: String, unique: true},
     // permissions: { type: Array, required: true },
-    // roles: { type: Schema.Types.String, ref: 'Role' },
+    role: { type: Schema.Types.String, ref: 'Role', required: true },
     enable: { type: Boolean, required: true },
     verify: { type: Boolean, required: true }
 }, { timestamps: true });

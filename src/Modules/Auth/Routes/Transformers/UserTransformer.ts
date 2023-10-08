@@ -9,17 +9,18 @@ export class UserTransformer
     // token?: string;
     // resetPasswordToken?: string;
     // permissions: string[];
-    // roles: string[];
     public verify: boolean;
     public enable: boolean;
     public createdAt: number;
     public updatedAt: number;
+    public role: string;
 
     constructor(payload: IUserDomain)
     {
         this.username = payload.username;
         this.verify = payload.verify;
         this.enable = payload.enable;
+        this.role = payload.role;
         this.createdAt = dayjs(payload.createdAt).utc().unix();
         this.updatedAt = dayjs(payload.updatedAt).utc().unix();
     }
