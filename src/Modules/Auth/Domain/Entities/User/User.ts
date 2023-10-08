@@ -9,7 +9,7 @@ export class User extends Base implements IUserDomain
     // token?: string;
     // resetPasswordToken?: string;
     // permissions: string[];
-    // roles: string[];
+    public role: string;
     public verify: boolean;
     public enable: boolean;
 
@@ -20,5 +20,6 @@ export class User extends Base implements IUserDomain
         this.password = createHash(payload.password);
         this.verify = payload.verify;
         this.enable = payload.enable;
+        this.role = payload.role;
     }
 }
