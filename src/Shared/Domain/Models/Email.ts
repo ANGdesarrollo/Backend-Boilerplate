@@ -7,7 +7,7 @@ export class Email
     {
         try
         {
-            const transporter = await nodeMailer.createTransport({
+            const transporter = nodeMailer.createTransport({
                 host: env.NODE_HOST_NODEMAILER,
                 port: env.NODE_PORT_NODEMAILER,
                 secure: true,
@@ -19,7 +19,7 @@ export class Email
 
             await transporter.verify();
 
-            transporter.sendMail(template);
+            await transporter.sendMail(template);
         }
         catch (error)
         {
