@@ -22,7 +22,7 @@ export class BaseMongooseRepository<
     async update(entity: T): Promise<T>
     {
         return this.repository.findOneAndUpdate(
-            { _id: entity.getId()} as FilterQuery<T>,
+            { _id: entity.getId() } as FilterQuery<T>,
             { $set: entity },
             { new: true }
         );
