@@ -1,6 +1,8 @@
+
 export interface IBaseDomain extends ITimestamps
+
 {
-    getId(): string;
+    getId(): string
     setId(id: string): void;
 }
 export interface ITimestamps {

@@ -5,9 +5,14 @@ import { User } from '../../Domain/Entities/User/User';
 
 export type UserMongooseDocument = Document & IUserDomain;
 
+export enum UserRole {
+    ADMIN = 'admin',
+    USER = 'user'
+}
+
 const UserSchema = new Schema<UserMongooseDocument>({
     _id: { type: String, default: uuidv4 },
-    username: { type: String, required: true, unique: true },
+    username: { type: String, required: true },
     password: { type: String, required: true },
     // token: { type: String, unique: true },
     // resetPasswordToken: { type: String, unique: true},

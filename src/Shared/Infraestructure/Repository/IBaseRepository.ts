@@ -4,5 +4,5 @@ export interface IBaseRepository<T>
     update(element: T): Promise<T>;
     getOne(condition: Record<string, any>): Promise<T>;
     getOneById(id: string): Promise<T>;
-    delete(id: string): Promise<T>;
+    // delete(id: string): Promise<T>;
 }

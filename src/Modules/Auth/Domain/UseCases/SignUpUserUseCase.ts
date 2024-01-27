@@ -28,6 +28,7 @@ export class SignUpUserUseCase extends UserRepository implements ISignUpUserUseC
         const user = new User(payload);
         user.enable = true;
         user.verify = false;
+        console.log(user)
         return await this.userRepository.save(user);
     }
 }

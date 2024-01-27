@@ -22,7 +22,7 @@ export class BaseMongooseRepository<
     async update(entity: T): Promise<T>
     {
         return this.repository.findOneAndUpdate(
-            { _id: entity.getId() } as FilterQuery<T>,
+            { _id: entity.getId()} as FilterQuery<T>,
             { $set: entity },
             { new: true }
         );
@@ -42,10 +42,10 @@ export class BaseMongooseRepository<
         return await this.repository.findById(id).exec();
     }
 
-    async delete(id: string)
-    {
-        const entity = await this.repository.findByIdAndDelete({ _id: id });
-
-        return entity;
-    }
+    // async delete(id: string)
+    // {
+    //     const entity = await this.repository.findByIdAndDelete({ _id: id });
+    //
+    //     return entity;
+    // }
 }
