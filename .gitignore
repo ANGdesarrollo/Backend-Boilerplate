@@ -6,3 +6,6 @@ log.log
 uploads
 key.pem
 cert.pem
+.idea
+modules.xml
+vcs.xml
