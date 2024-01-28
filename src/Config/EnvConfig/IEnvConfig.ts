@@ -13,7 +13,7 @@ export interface IEnvConfig {
     NODE_USERNAME_NODEMAILER: string;
     NODE_TOKEN_EXPIRES_IN: number;
     NODE_COOKIE_EXPIRES_IN: number;
-    NODE_HTTPS_PASSPHRASE: string;
+    NODE_MERCADOPAGO_TOKEN: string;
 }
 
 

@@ -38,6 +38,9 @@ dependencies:
   jsonwebtoken:
     specifier: ^9.0.2
     version: 9.0.2
+  mercadopago:
+    specifier: ^2.0.6
+    version: 2.0.6
   mime-types:
     specifier: ^2.1.35
     version: 2.1.35
@@ -2763,6 +2766,15 @@ packages:
       type-fest: 0.18.1
       yargs-parser: 20.2.9
     dev: true
+
+  /mercadopago@2.0.6:
+    resolution: {integrity: sha512-+lFz8ZtsGrMMfsFaQWhCcDk6I7NgvwyALLKbtPNF6Z7fgaao1yHSc+22KppKZyAqQronWAOHQ+mOhWQkO1/mHQ==}
+    dependencies:
+      node-fetch: 2.7.0
+      uuid: 9.0.1
+    transitivePeerDependencies:
+      - encoding
+    dev: false
 
   /merge-stream@2.0.0:
     resolution: {integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==}

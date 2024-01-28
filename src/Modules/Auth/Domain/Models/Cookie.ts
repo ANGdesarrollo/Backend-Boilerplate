@@ -9,7 +9,8 @@ export class Cookie
             secure: env.NODE_ENV === 'PRODUCTION',
             signed: true,
             httpOnly: true,
-            maxAge: env.NODE_COOKIE_EXPIRES_IN
+            maxAge: env.NODE_COOKIE_EXPIRES_IN,
+            path: '/'
         });
     }
 

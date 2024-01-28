@@ -11,6 +11,7 @@ import { FilesRouter } from './Modules/Files/Router/FilesRouter';
 import { fastifyConfig } from './Config/ConfigFastify/fastifyConfig';
 import { multipartConfig } from './Config/MultipartConfig/multipartConfig';
 import { RoleRouter } from './Modules/Role/Router/RoleRouter';
+import { MercadoPagoRoutes } from './Modules/MercadoPago/Routes/MercadoPagoRouter';
 
 export class Server
 {
@@ -60,6 +61,7 @@ export class Server
         new AuthRoutes(this.app).start();
         new FilesRouter(this.app).start();
         new RoleRouter(this.app).start();
+        new MercadoPagoRoutes(this.app).start();
         this.app.get('/', async(request: FastifyRequest, reply: FastifyReply) =>
         {
             await reply.send('HelloWorld');

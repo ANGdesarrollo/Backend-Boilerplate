@@ -73,9 +73,9 @@ if (!process.env.NODE_COOKIE_EXPIRES_IN)
     throw new Error('Environment not properly set. NODE_TOKEN_EXPIRES_IN not set');
 }
 
-if (process.env.NODE_ENV === 'PRODUCTION' && !process.env.NODE_HTTPS_PASSPHRASE)
+if (!process.env.NODE_MERCADOPAGO_TOKEN)
 {
-    throw new Error('Environment not properly set. NODE_HTTPS_PASSPHRASE not set');
+    throw new Error('Environment not properly set. NODE_MERCADOPAGO_TOKEN not set');
 }
 
 export const env: IEnvConfig = {
@@ -93,5 +93,5 @@ export const env: IEnvConfig = {
     NODE_USERNAME_NODEMAILER: process.env.NODE_USERNAME_NODEMAILER,
     NODE_TOKEN_EXPIRES_IN: Number(process.env.NODE_TOKEN_EXPIRES_IN),
     NODE_COOKIE_EXPIRES_IN: Number(process.env.NODE_COOKIE_EXPIRES_IN),
-    NODE_HTTPS_PASSPHRASE: process.env.NODE_HTTPS_PASSPHRASE
+    NODE_MERCADOPAGO_TOKEN: process.env.NODE_MERCADOPAGO_TOKEN
 };
