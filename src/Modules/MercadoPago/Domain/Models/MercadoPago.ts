@@ -6,6 +6,7 @@ export class MercadoPago
     private readonly client: MercadoPagoConfig;
     private readonly preference: Preference;
     private readonly payment: Payment;
+    private readonly merchantOrder: MerchantOrder
 
     constructor()
     {
@@ -15,6 +16,7 @@ export class MercadoPago
 
         this.preference = new Preference(this.client);
         this.payment = new Payment(this.client);
+        this.merchantOrder = new MerchantOrder(this.client);
     }
 
     getPayment()
@@ -25,5 +27,10 @@ export class MercadoPago
     getPreference()
     {
         return this.preference;
+    }
+
+    getMerchantOrder()
+    {
+        return this.merchantOrder
     }
 }
