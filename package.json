@@ -30,6 +30,7 @@
     "dotenv": "^16.4.1",
     "fastify": "^4.25.2",
     "jsonwebtoken": "^9.0.2",
+    "mercadopago": "^2.0.6",
     "mime-types": "^2.1.35",
     "mongoose": "^7.6.8",
     "nodemailer": "^6.9.8",
