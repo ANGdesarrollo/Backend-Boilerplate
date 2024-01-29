@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { MercadoPago } from '../Domain/Models/MercadoPago';
 import { JWToken } from '../../Auth/Domain/Models/JWToken';
-import {CreateOrderPayload} from "../Entities/Payloads/CreateOrderPayload";
+import { CreateOrderPayload } from '../Entities/Payloads/CreateOrderPayload';
 
 
 export class MercadoPagoController
@@ -22,8 +22,8 @@ export class MercadoPagoController
         const data = {
             ...requestBody,
             notification_url: 'https://d3dd-181-197-208-42.ngrok-free.app/api/mercado-pago/webhook',
-            external_reference: token.data.username,
-        }
+            external_reference: token.data.username
+        };
         const result = await preference.create({
             body: data });
 
@@ -47,7 +47,6 @@ export class MercadoPagoController
 
     webhook = async(request: FastifyRequest, reply: FastifyReply) =>
     {
-
         const data = request.query;
         const payment = this.mercadoPago.getPayment();
         const merchantOrder = this.mercadoPago.getMerchantOrder();
@@ -60,8 +59,8 @@ export class MercadoPagoController
 
             const test = await merchantOrder.get({
                 merchantOrderId: paymentResponse.order.id
-            })
-            console.log('SOY PAYMENT RESPONSE', JSON.stringify(test, null, 4));
+            });
+            // console.log('SOY PAYMENT RESPONSE', JSON.stringify(test, null, 4));
         }
 
         await reply.status(201);
